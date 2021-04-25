@@ -1,0 +1,56 @@
+@import "~antd/dist/antd.less";  //引入官方样式的less文件
+@import "~@ant-design/aliyun-theme/index.less";
+
+@success-color: @primary-color;
+@font-size-base: 14px;
+@font-size-sm: 14px;
+@layout-header-background: #243A53;
+@layout-footer-background: @layout-header-background;
+
+
+// custom viriable
+@layoutheader-fontsize: 20px;
+@dscription-content-font-size: 18px;
+
+
+
+#header {
+    p {
+        color: @white;
+        font-size: @layoutheader-fontsize;
+        font-weight: bold;
+    }
+}
+
+#section-overview {
+    background: @white;
+    #overview {
+        p {
+            font-size: @dscription-content-font-size;
+        }
+    }
+    #columns {
+        ul {
+            font-size: @dscription-content-font-size;
+        }
+    }
+}
+
+.ant-table-tbody > tr > td {
+    padding: 2px 5px;
+    word-break: break-word;
+}
+
+#footer {
+    p {
+        color: @white;
+    }
+}
+
+.modal-sort-font {
+    font-size: @dscription-content-font-size;
+}
+
+.modal-filter-font {
+    font-size: @dscription-content-font-size;
+}
