@@ -9,4 +9,4 @@
 - Store and Request Data in MySQL
 - Backend server built by Nodejs with express.js
 - Frontend built by React, Antd, and Less
-- Implement data sort and filter by SQL request
+- Implement data pagination, sort and filter by SQL query instead of local js.
