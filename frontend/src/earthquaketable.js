@@ -1,14 +1,12 @@
 import React from 'react';
-import axios from 'axios';
 import { Table, Spin, Pagination } from 'antd';
 import TableTh from './tableth';
+
+import conf_axios from './configure_axios';
 
 const primary_headers = ["id", "date", "time", "latitude", "longitude", "country", "city", "area", "direction", "distance", "depth", "xm", "md", "richter", "mw", "ms", "mb"];
 const nums = ["id", "latitude", "longitude", "distance", "depth", "xm", "md", "richter", "mw", "ms", "mb"];
 const strs = ["date", "time", "country", "city", "area", "direction"];
-
-// axios.defaults.baseURL = "http://localhost:3001/";
-axios.defaults.baseURL = "http://106.14.216.118:3001/";
 
 class EarthQuakeTable extends React.Component {
     constructor(props){
@@ -30,16 +28,17 @@ class EarthQuakeTable extends React.Component {
     }
 
     getDefaultPage = (limit, offset) => {
-        axios.post('/api/getdefaultpage', {page_limit_num: limit, page_offset: offset})
+        // console.log('send',limit, offset);
+        conf_axios.get('/api/getdefaultpage', {params: {page_limit_num: limit, page_offset: offset}})
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             this.setState({
                 tableData: res.data,
                 isLoaded: true
             });
         })
         .catch((err) => {
-            console.log(err);
+            console.log('get err', err);
             this.setState({
                 isLoaded: false,
                 error: err
@@ -48,9 +47,9 @@ class EarthQuakeTable extends React.Component {
     }
 
     getMaxMin = (num_headers) => {
-        axios.post('/api/getmaxmin', {headers: num_headers})
+        conf_axios.get('/api/getmaxmin', {params: {headers: num_headers}})
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             this.setState({
                 tableColumnRange: res.data,
                 rangeIsLoaded: true,
@@ -66,14 +65,14 @@ class EarthQuakeTable extends React.Component {
     componentDidMount(){
         this.getDefaultPage(this.state.page_limit_num, 0);
         this.getMaxMin(nums);
-        console.log('componetdidmount')
+        // console.log('componetdidmount')
     }
 
     numSortAndFilter = (sort_and_filter, limit, offset) => {
         sort_and_filter['page_limit_num'] = limit;
         sort_and_filter['page_offset'] = offset;
         // console.log(sort_and_filter);
-        axios.post('/api/numsortandfilter', sort_and_filter)
+        conf_axios.post('/api/numsortandfilter', sort_and_filter)
         .then((res) => {
             // console.log(res.data);
             this.setState({
@@ -95,9 +94,9 @@ class EarthQuakeTable extends React.Component {
     }
 
     numGetNumOfRows = (sort_and_filter) => {
-        axios.post('/api/numsortandfilternrow', sort_and_filter)
+        conf_axios.post('/api/numsortandfilternrow', sort_and_filter)
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             this.setState({
                 n_rows: res.data[0]['rows'],
                 isLoaded: true,
@@ -116,7 +115,7 @@ class EarthQuakeTable extends React.Component {
         sort_and_filter['page_limit_num'] = limit;
         sort_and_filter['page_offset'] = offset;
         // console.log(sort_and_filter);
-        axios.post('/api/numsortandfilter', sort_and_filter)
+        conf_axios.post('/api/numsortandfilter', sort_and_filter)
         .then((res) => {
             // console.log(res.data);
             this.setState({
@@ -139,9 +138,9 @@ class EarthQuakeTable extends React.Component {
         sort_and_filter['page_limit_num'] = limit;
         sort_and_filter['page_offset'] = offset;
         // console.log(sort_and_filter);
-        axios.post('/api/strsortandfilter', sort_and_filter)
+        conf_axios.post('/api/strsortandfilter', sort_and_filter)
         .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             this.setState({
                 tableData: res.data,
                 isLoaded: true,
@@ -161,7 +160,7 @@ class EarthQuakeTable extends React.Component {
     }
 
     strGetNumOfRows = (sort_and_filter) => {
-        axios.post('/api/strsortandfilternrow', sort_and_filter)
+        conf_axios.post('/api/strsortandfilternrow', sort_and_filter)
         .then((res) => {
             console.log(res.data);
             this.setState({
@@ -182,7 +181,7 @@ class EarthQuakeTable extends React.Component {
         sort_and_filter['page_limit_num'] = limit;
         sort_and_filter['page_offset'] = offset;
         // console.log(sort_and_filter);
-        axios.post('/api/strsortandfilter', sort_and_filter)
+        conf_axios.post('/api/strsortandfilter', sort_and_filter)
         .then((res) => {
             // console.log(res.data);
             this.setState({
@@ -305,7 +304,7 @@ class EarthQuakeTable extends React.Component {
                 });
             });
             // delete columns[columns.length-1]['width'];
-            console.log(this.state.n_rows);
+            // console.log(this.state.n_rows);
             
 
             return (

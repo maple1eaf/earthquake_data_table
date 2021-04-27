@@ -78,9 +78,9 @@ router.get('/mysqltest', (req, res) => {
 });
 
 
-router.post('/getdefaultpage', (req, res) => {
-    const {page_limit_num, page_offset} = req.body;
-    console.log(page_limit_num +' '+ page_offset);
+router.get('/getdefaultpage', (req, res) => {
+    const {page_limit_num, page_offset} = req.query;
+    // console.log(page_limit_num +' '+ page_offset);
     const default_page_query = `SELECT * FROM earthquake LIMIT ${page_limit_num} OFFSET ${page_offset};`;
     db.query(default_page_query, (err, result) => {
         if (err) {
@@ -91,8 +91,8 @@ router.post('/getdefaultpage', (req, res) => {
     });
 });
 
-router.post('/getmaxmin', (req, res) => {
-    const {headers} = req.body;
+router.get('/getmaxmin', (req, res) => {
+    const {headers} = req.query;
     // console.log(headers);
     let max_min = {};
     let n = 0;
@@ -177,6 +177,7 @@ router.post('/getmaxmin', (req, res) => {
 });
 
 router.post('/numsortandfilter', (req, res) => {
+    // console.log('11111', req.query)
     const {column_title, sort_direction, filter_range, include_null, page_limit_num, page_offset} = req.body;
     // filter_range should be [null, number] or [number, number]
     // include_null should be true or false
@@ -257,7 +258,6 @@ router.post('/numsortandfilternrow', (req, res) => {
 router.post('/strsortandfilter', (req, res) => {
     // filter_keywords should by ["a", "b", ...], [] means not filter
     // sort_direction should be 'ASC' or 'DESC' or 'NOTSORT'
-    
     const {column_title, sort_direction, filter_keywords,include_null, page_limit_num, page_offset} = req.body;
 
     let querystr = `SELECT * FROM earthquake `;
@@ -321,8 +321,8 @@ router.post('/strsortandfilternrow', (req, res) => {
     });
 });
 
-router.post('/chartdata', (req, res) => {
-    const title = req.body['title'];
+router.get('/chartdata', (req, res) => {
+    const title = req.query['title'];
     const query = `SELECT ${title} FROM earthquake;`
     console.log(query);
     db.query(query, (err, result) => {
@@ -334,8 +334,8 @@ router.post('/chartdata', (req, res) => {
     });
 });
 
-router.post('/chartdatagroupcount', (req, res) => {
-    const title = req.body['title'];
+router.get('/chartdatagroupcount', (req, res) => {
+    const title = req.query['title'];
     const query = `SELECT ${title}, COUNT(*) count FROM earthquake GROUP BY ${title};`
     console.log(query);
     db.query(query, (err, result) => {
@@ -347,17 +347,17 @@ router.post('/chartdatagroupcount', (req, res) => {
     });
 })
 
-router.post('/mysqlquery', (req, res) => {
-    const query = req.body['query'];
-    console.log(query);
-    db.query(query, (err, result) => {
-        if (err) {
-            console.log('[SELECT ERROR] - ', err.message);
-            return;
-        }
-        return res.send(result);
-    });
-})
+// router.post('/mysqlquery', (req, res) => {
+//     const query = req.body['query'];
+//     console.log(query);
+//     db.query(query, (err, result) => {
+//         if (err) {
+//             console.log('[SELECT ERROR] - ', err.message);
+//             return;
+//         }
+//         return res.send(result);
+//     });
+// })
 
 app.use('/api', router);
 

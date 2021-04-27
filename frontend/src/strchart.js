@@ -1,16 +1,14 @@
 import React from 'react';
 import { Spin } from 'antd';
-import axios from 'axios';
 import { Chart, Geom, Axis, Tooltip, Coord } from "bizcharts";
 import DataSet from "@antv/data-set";
+
+import conf_axios from './configure_axios';
 
 const CHART_TYPE = ["ns", "ds", "ts"];
 const NORMAL_STR = ["country", "city", "area", "direction"]; // use pie chart
 const DATE_STR = ["date"];
 const TIME_STR = ["time"];
-
-// axios.defaults.baseURL = "http://localhost:3001/";
-axios.defaults.baseURL = "http://106.14.216.118:3001/";
 
 class StrChart extends React.Component {
     constructor(props){
@@ -64,7 +62,7 @@ class StrChart extends React.Component {
         const chart_type = this.state.chartType;
         // get data
         if (chart_type === CHART_TYPE[0]) {
-            axios.post('/api/chartdatagroupcount', {title: title})
+            conf_axios.get('/api/chartdatagroupcount', {params: {title: title}})
             .then((res) => {
                 let data = res.data;
                 
@@ -86,7 +84,7 @@ class StrChart extends React.Component {
                 });
             });
         } else if (chart_type === CHART_TYPE[1]) {
-            axios.post('/api/chartdata', {title: title})
+            conf_axios.get('/api/chartdata', {params: {title: title}})
             .then((res) => {
                 let data = res.data;
                 // console.log(data);
@@ -110,7 +108,7 @@ class StrChart extends React.Component {
                 });
             });
         } else if (chart_type === CHART_TYPE[2]) {
-            axios.post('/api/chartdata', {title: title})
+            conf_axios.get('/api/chartdata', {params: {title: title}})
             .then((res) => {
                 let data = res.data;
                 // console.log(data);

@@ -97,7 +97,7 @@ class TableTh extends React.Component {
     }
 
     onRangeChange = value => {
-        console.log('value='+value[0]+',,,'+value[1]+typeof(value));
+        // console.log('value='+value[0]+',,,'+value[1]+typeof(value));
         if (value[0] !== this.props.numRange['min']) {
             this.setState({
                 includeNull: false,
