@@ -1,8 +1,8 @@
 import React from 'react';
 import { Icon, InputNumber } from 'antd';
 import { Modal, Radio, Slider, Input, Divider, Switch } from 'antd';
-import NumChart from './numchart';
-import Strchart from './strchart';
+// import NumChart from './numchart';
+// import Strchart from './strchart';
 // import { View } from '@antv/data-set';
 
 const NULL_TEXT = [];
@@ -163,7 +163,7 @@ class TableTh extends React.Component {
         const col_title = this.props.titleName;
         const col_type = this.props.contentType;
         let col_slider = '';
-        let col_chart = '';
+        // let col_chart = '';
         let switch_null = null;
         // const {unsettedColumn} = this.props;
 
@@ -240,18 +240,18 @@ class TableTh extends React.Component {
                         />
         }
 
-        if (col_type === 'number') {
-            const range_max = this.props.numRange['max'];
-            const range_min = this.props.numRange['min'];
-            const col_range = [range_min, range_max];
-            col_chart = <div id={this.state.id}>
-                            <NumChart title={col_title} range={col_range}/>
-                        </div>;
-        } else {
-            col_chart = <div>
-                            <Strchart title={col_title} />
-                        </div>;
-        }
+        // if (col_type === 'number') {
+        //     const range_max = this.props.numRange['max'];
+        //     const range_min = this.props.numRange['min'];
+        //     const col_range = [range_min, range_max];
+        //     col_chart = <div id={this.state.id}>
+        //                     <NumChart title={col_title} range={col_range}/>
+        //                 </div>;
+        // } else {
+        //     col_chart = <div>
+        //                     <Strchart title={col_title} />
+        //                 </div>;
+        // }
 
         return(
             <div>
@@ -260,8 +260,8 @@ class TableTh extends React.Component {
                     <div style={{float: "right"}}>
                         <Icon type="sliders" theme={fcolor} twoToneColor="#eb2f96" onClick={() => this.showModal(true)} />
                     </div>
-                    <Divider />
-                    {col_chart}
+                    {/* <Divider /> */}
+                    {/* {col_chart} */}
                 </div>
 
                 <div className="table-header-modal-div">
