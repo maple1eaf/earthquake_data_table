@@ -2,7 +2,7 @@
 - This is a data management project focus on data storing, requesting, and managing (sorting and filtering).
 
 ## Demo
-[Demo website](http://106.14.216.118:3000/)
+[Demo website](http://106.14.216.118/earthquake/)
 
 ## Tech Features
 ![](./resources/workflow/workflow.001.jpeg)
